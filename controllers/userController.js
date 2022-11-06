@@ -1,7 +1,12 @@
 const User = require('../models/UserModel');
+const Stock = require('../models/StockModel');
 
 module.exports.renderHome = async (req, res) => {
-  res.render('home');
+  const stocks = await Stock.find({});
+  console.log(req.user);
+  const user = await User.findById(req.user._id).populate('portfolios');
+  
+  res.render('home', { stocks, user });
 };
 
 module.exports.register = async (req, res) => {

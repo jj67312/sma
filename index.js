@@ -8,6 +8,7 @@ const User = require('./models/UserModel');
 // routes:
 const userRoutes = require('./routes/userRoutes');
 const portfolioRoutes = require('./routes/portfolioRoutes');
+const stockRoutes = require('./routes/stockRoutes');
 
 // express-session:
 const session = require('express-session');
@@ -95,6 +96,7 @@ app.use((req, res, next) => {
 // ROUTES:
 app.use('/', userRoutes);
 app.use('/portfolio', portfolioRoutes);
+app.use('/stock', stockRoutes);
 
 // Error handling
 app.use((err, req, res, next) => {

@@ -1,0 +1,15 @@
+<%- layout('layouts/boilerplate') %>
+
+
+<form action="/stock/<%= stock._id %>/<%= currentUser._id %>" method="POST">
+  <label class="form-label" for="profession">Choose Portfolio: </label>
+  <select class="form-select" name="portfolioName" id="profession" required>
+    <% for(let portfolio of user.portfolios) {%> 
+    <option value="<%= portfolio.name %>"><%= portfolio.name %></option>
+    <% } %> 
+  </select>
+  <div class="valid-feedback">
+    Looks good!
+  </div>
+  <button class="btn btn-success">Add Stock</button>
+</form>

@@ -16,7 +16,7 @@ const users = require('../controllers/userController');
 // middleware:
 const { isLoggedIn } = require('../middleware');
 
-router.route('').get(users.renderHome)
+router.route('').get(isLoggedIn, users.renderHome);
 
 router
   .route('/register')
@@ -36,6 +36,5 @@ router
   );
 
 router.get('/logout', users.logout);
-
 
 module.exports = router;

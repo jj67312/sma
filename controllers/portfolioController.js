@@ -11,7 +11,7 @@ module.exports.allPortfolios = async (req, res) => {
 // view existing portfolio
 module.exports.viewPortfolio = async (req, res) => {
   const { userId, portfolioId } = req.params;
-  const portfolio = await Portfolio.findById(portfolioId);
+  const portfolio = await Portfolio.findById(portfolioId).populate('stocks');
   res.render('portfolios/showPortfolio', { portfolio });
 };
 

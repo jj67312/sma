@@ -1,3 +1,41 @@
 <%- layout('layouts/boilerplate') %>
 
-<%- include('./partials/searchBar.ejs') %>
+
+<table class="table table-borderless">
+  <thead>
+    <tr>
+      <th scope="col">Stock Name</th>
+      <th scope="col">Open</th>
+      <th scope="col">High</th>
+      <th scope="col">Low</th>
+      <th scope="col">Close</th>
+      <th scope="col">View</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let stock of stocks) { %>
+    <tr class="p-3">
+      <th scope="row"><%= stock.name %> </th>
+      <td><%= stock.data[285].open %> </td>
+      <td><%= stock.data[285].high %> </td>
+      <td><%= stock.data[285].low %> </td>
+      <td><%= stock.data[285].close %> </td>
+
+      <td>
+        <form class="row" action="/stock/<%= stock._id %>/<%= currentUser._id %>" method="POST">
+          <label class="col form-label" for="profession">Choose Portfolio: </label>
+          <select class="col form-select" name="portfolioName" id="profession" required>
+            <% for(let portfolio of user.portfolios) {%>
+            <option value="<%= portfolio.name %>"><%= portfolio.name %></option>
+            <% } %>
+          </select>
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+          <button class="col btn btn-success">Add Stock</button>
+        </form>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
