@@ -10,6 +10,7 @@
       <th scope="col">Low</th>
       <th scope="col">Close</th>
       <th scope="col">View</th>
+      <th scope="col">Choose Portfolio</th>
     </tr>
   </thead>
   <tbody>
@@ -20,6 +21,8 @@
       <td><%= stocks[i].data[285].high %> </td>
       <td><%= stocks[i].data[285].low %> </td>
       <td><%= stocks[i].data[285].close %> </td>
+
+      <td> <a href="/stock/<%= stocks[i]._id %>/<%= currentUser._id %>"> View <%= stocks[i].name %> </a> </td>
 
       <td>
         <form class="row" action="/stock/<%= stocks[i]._id %>/<%= currentUser._id %>" method="POST">
