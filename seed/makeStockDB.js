@@ -11471,10 +11471,31 @@ const microsoft = [
 ];
 
 app.get('/seed', async (req, res) => {
-  const stock = new Stock();
-  stock.data = microsoft;
-  stock.name = 'Microsoft';
-  await stock.save();
+  const s1 = new Stock();
+  s1.data = microsoft;
+  s1.name = 'Microsoft';
+  await s1.save();
+
+  const s2 = new Stock();
+  s2.data = tata;
+  s2.name = 'Tata';
+  await s2.save();
+
+  const s3 = new Stock();
+  s3.data = amazon;
+  s3.name = 'Amazon';
+  await s3.save();
+
+  const s4 = new Stock();
+  s4.data = google;
+  s4.name = 'Google';
+  await s4.save();
+
+  const s5 = new Stock();
+  s5.data = apple;
+  s5.name = 'Apple';
+  await s5.save();
+
   res.send('DONE!');
 });
 

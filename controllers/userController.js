@@ -1,12 +1,85 @@
 const User = require('../models/UserModel');
 const Stock = require('../models/StockModel');
+const Portfolio = require('../models/PortfolioModel');
 
 module.exports.renderHome = async (req, res) => {
   const stocks = await Stock.find({});
-  console.log(req.user);
-  const user = await User.findById(req.user._id).populate('portfolios');
-  
-  res.render('home', { stocks, user });
+  const user = await User.findById(req.user._id).populate({
+    path: 'portfolios',
+    populate: {
+      path: 'stocks',
+    },
+  });
+
+  const userPortfolios = await Portfolio.find({ owner: user._id }).populate(
+    'stocks'
+  );
+
+  const allPs = await Portfolio.find({});
+
+  let lF = [];
+  for (let p of userPortfolios) {
+    let l = [];
+    for (st of p.stocks) {
+      l.push(st.name);
+    }
+    lF.push(l);
+  }
+
+  //[ [ 'Microsoft', 'Amazon', 'Apple' ], [ 'Tata', 'Amazon', 'Google' ] ]
+  console.log(lF);
+
+  const stockNames = stocks.map((stock) => stock.name);
+  let availableStocks = [];
+  for (let p of lF) {
+    let dupStocks = stockNames.slice(0);
+    let arr = dupStocks.filter(function (el) {
+      return p.indexOf(el) < 0;
+    });
+    availableStocks.push(arr);
+  }
+
+  // [ [ 'Tata', 'Google' ], [ 'Microsoft', 'Apple' ] ]
+  console.log(availableStocks);
+
+  // userPortfolios.stocks
+  // if st.name is in as -->
+
+  function contains(a, obj) {
+    for (var i = 0; i < a.length; i++) {
+      if (a[i] === obj) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  let fList = [];
+  for (let st of stockNames) {
+    let list = [];
+    for (let i = 0; i < availableStocks.length; i++) {
+      if (contains(availableStocks[i], st)) {
+        list.push(i);
+      }
+    }
+    console.log(list);
+    fList.push(list);
+  }
+
+  console.log(fList);
+  // userPortfolios conains all the portfolios for the curr user
+  let availablePortfoliosForEachStock = [];
+  for (let list of fList) {
+    tempPorts = [];
+    for (let ele of list) {
+      tempPorts.push(userPortfolios[ele]);
+    }
+    availablePortfoliosForEachStock.push(tempPorts);
+  }
+
+  console.log(availablePortfoliosForEachStock);
+
+  res.render('home', { stocks, user, availablePortfoliosForEachStock });
 };
 
 module.exports.register = async (req, res) => {

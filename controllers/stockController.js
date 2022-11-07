@@ -15,12 +15,16 @@ module.exports.viewStock = async (req, res) => {
 };
 
 module.exports.addStock = async (req, res) => {
-  const { stockId, userId } = req.params;
-  const { portfolioName } = req.body;
-  const portfolio = await Portfolio.findOne({ name: portfolioName });
-  portfolio.stocks.push(stockId);
-  await portfolio.save();
-  res.redirect(`/portfolio/${userId}/${portfolio._id}`);
+  try {
+    const { stockId, userId } = req.params;
+    const { portfolioName } = req.body;
+    const portfolio = await Portfolio.findOne({ name: portfolioName });
+    portfolio.stocks.push(stockId);
+    await portfolio.save();
+    res.redirect(`/portfolio/${userId}/${portfolio._id}`);
+  } catch (err) {
+    req.flash('error', 'Stock already exists in portfolio!');
+  }
 };
 
 // portfolio, stock
