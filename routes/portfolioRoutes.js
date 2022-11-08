@@ -3,22 +3,24 @@ const router = express.Router();
 
 const { isLoggedIn, isOwner } = require('../middleware');
 const portfoilioControllers = require('../controllers/portfolioController');
+const { Portfolios } = require('../controllers/portfolioController');
+const portfolios = new Portfolios();
 
 // starts with /portfolio
 
 router
   .route('/:userId')
-  .get(isLoggedIn, portfoilioControllers.allPortfolios)
-  .post(isLoggedIn, portfoilioControllers.createPortfolio);
+  .get(isLoggedIn, portfolios.allPortfolios)
+  .post(isLoggedIn, portfolios.createPortfolio);
 
 router
   .route('/:userId/:portfolioId')
-  .get(isLoggedIn, isOwner, portfoilioControllers.viewPortfolio)
-  .put(isLoggedIn, isOwner, portfoilioControllers.updatePortfolio)
-  .delete(isLoggedIn, isOwner, portfoilioControllers.deletePortfolio);
+  .get(isLoggedIn, isOwner, portfolios.viewPortfolio)
+  .put(isLoggedIn, isOwner, portfolios.updatePortfolio)
+  .delete(isLoggedIn, isOwner, portfolios.deletePortfolio);
 
 router
   .route('/:userId/:portfolioId/edit')
-  .get(isLoggedIn, isOwner, portfoilioControllers.renderEditForm);
+  .get(isLoggedIn, isOwner, portfolios.renderEditForm);
 
 module.exports = router;

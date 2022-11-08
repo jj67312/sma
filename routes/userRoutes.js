@@ -11,8 +11,9 @@ const User = require('../models/UserModel');
 const passport = require('passport');
 
 // User controller
-const users = require('../controllers/userController');
-
+// const users = require('../controllers/userController');
+const { Users } = require('../controllers/userController');
+const users = new Users();
 // middleware:
 const { isLoggedIn } = require('../middleware');
 

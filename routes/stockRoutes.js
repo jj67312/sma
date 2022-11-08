@@ -5,15 +5,18 @@ const { isLoggedIn, isOwner } = require('../middleware');
 const stockController = require('../controllers/stockController');
 // starts with /stock
 
-router.route('/').get(stockController.getAllStocks);
+const { Stocks } = require('../controllers/stockController');
+const stocks = new Stocks();
+
+router.route('/').get(stocks.getAllStocks);
 
 router
   .route('/:stockId/:userId')
-  .get(isLoggedIn, stockController.viewStock)
-  .post(isLoggedIn, stockController.addStock);
+  .get(isLoggedIn, stocks.viewStock)
+  .post(isLoggedIn, stocks.addStock);
 
 router
   .route('/remove/:stockId/:portfolioId/:userId')
-  .delete(isLoggedIn, stockController.removeStock);
+  .delete(isLoggedIn, stocks.removeStock);
 
 module.exports = router;
