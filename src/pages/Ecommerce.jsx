@@ -21,7 +21,7 @@ const Ecommerce = () => {
   return (
     <div className="mt-24">
       <div className="flex flex-wrap lg:flex-nowrap justify-center ">
-        <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3 bg-hero-pattern bg-no-repeat bg-cover bg-center">
+        <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3 bg-[url('D:\Data\Personal\ITLAB\se-project\src\data\welcome-bg.svg')] bg-no-repeat bg-cover bg-center">
           <div className="flex justify-between items-center">
             <div>
               <p className="font-bold text-gray-400">Earnings</p>
@@ -69,7 +69,7 @@ const Ecommerce = () => {
       <div className="flex gap-10 flex-wrap justify-center">
         <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg m-3 p-4 rounded-2xl md:w-780  ">
           <div className="flex justify-between">
-            <p className="font-semibold text-xl">Revenue Updates</p>
+            <p className="font-semibold text-xl">Portfolio Price Tracker</p>
             <div className="flex items-center gap-4">
               <p className="flex items-center gap-2 text-gray-600 hover:drop-shadow-xl">
                 <span>
@@ -94,12 +94,12 @@ const Ecommerce = () => {
                     23%
                   </span>
                 </p>
-                <p className="text-gray-500 mt-1">Budget</p>
+                <p className="text-gray-500 mt-1">Portfolio Value - High</p>
               </div>
               <div className="mt-8">
                 <p className="text-3xl font-semibold">$48,487</p>
 
-                <p className="text-gray-500 mt-1">Expense</p>
+                <p className="text-gray-500 mt-1">Portfolio Value - Net</p>
               </div>
 
               <div className="mt-5">
@@ -296,7 +296,7 @@ const Ecommerce = () => {
         </div>
         <div className="w-400 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6 m-3">
           <div className="flex justify-between">
-            <p className="text-xl font-semibold">Daily Activities</p>
+            <p className="text-xl font-semibold">News</p>
             <button type="button" className="text-xl font-semibold text-gray-500">
               <IoIosMore />
             </button>
@@ -308,7 +308,7 @@ const Ecommerce = () => {
               alt=""
             />
             <div className="mt-8">
-              <p className="font-semibold text-lg">React 18 coming soon!</p>
+              <p className="font-semibold text-lg">Apple Announces new Macbook Lineup.</p>
               <p className="text-gray-400 ">By Johnathan Doe</p>
               <p className="mt-8 text-sm text-gray-400">
                 This will be the small description for the news you have shown
