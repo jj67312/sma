@@ -11,7 +11,8 @@ const catchAsync = require('../utils/catchAsync');
 
 router
   .route('/:userId')
-  .get(isLoggedIn, isSameUser, portfolios.allPortfolios)
+  // .get(isLoggedIn, isSameUser, portfolios.allPortfolios)
+  .get(portfolios.allPortfolios)
   .post(isLoggedIn, portfolios.createPortfolio);
 
 router

@@ -114,3 +114,6 @@ app.use((err, req, res, next) => {
 app.listen(3000, (req, res) => {
   console.log('Active port 3000');
 });
+
+// for testing
+module.exports = app;
