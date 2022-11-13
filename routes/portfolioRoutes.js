@@ -13,13 +13,16 @@ router
   .route('/:userId')
   // .get(isLoggedIn, isSameUser, portfolios.allPortfolios)
   .get(portfolios.allPortfolios)
-  .post(isLoggedIn, portfolios.createPortfolio);
+  // .post(isLoggedIn, portfolios.createPortfolio)
+  .post(portfolios.createPortfolio);
 
 router
   .route('/:userId/:portfolioId')
-  .get(isLoggedIn, isOwner, portfolios.viewPortfolio)
+  // .get(isLoggedIn, isOwner, portfolios.viewPortfolio)
+  .get(portfolios.viewPortfolio)
   .put(isLoggedIn, isOwner, portfolios.updatePortfolio)
-  .delete(isLoggedIn, isOwner, portfolios.deletePortfolio);
+  // .delete(isLoggedIn, isOwner, portfolios.deletePortfolio)
+  .delete(portfolios.deletePortfolio);
 
 router
   .route('/:userId/:portfolioId/edit')

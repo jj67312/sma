@@ -28,12 +28,8 @@ const methodOverride = require('method-override');
 
 const mongoose = require('mongoose');
 main()
-  .then((res) => {
-    console.log('Successfully connected to mongoDB!');
-  })
-  .catch((err) => {
-    console.log('Connection to mongoDB failed!');
-  });
+  .then((res) => {})
+  .catch((err) => {});
 async function main() {
   await mongoose.connect('mongodb://localhost:27017/sma');
 }
