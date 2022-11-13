@@ -98,6 +98,10 @@ app.use('/', userRoutes);
 app.use('/portfolio', portfolioRoutes);
 app.use('/stock', stockRoutes);
 
+app.all('*', (req, res, next) => {
+  next(new ExpressError('Page not found!', 404));
+});
+
 // Error handling
 app.use((err, req, res, next) => {
   const { statusCode = 500 } = err;

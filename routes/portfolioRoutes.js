@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
 
-const { isLoggedIn, isOwner } = require('../middleware');
-const portfoilioControllers = require('../controllers/portfolioController');
+const { isLoggedIn, isOwner, isSameUser } = require('../middleware');
 const { Portfolios } = require('../controllers/portfolioController');
 const portfolios = new Portfolios();
+const catchAsync = require('../utils/catchAsync');
+
 
 // starts with /portfolio
 
 router
   .route('/:userId')
-  .get(isLoggedIn, portfolios.allPortfolios)
+  .get(isLoggedIn, isSameUser, portfolios.allPortfolios)
   .post(isLoggedIn, portfolios.createPortfolio);
 
 router

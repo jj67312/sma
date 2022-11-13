@@ -28,10 +28,10 @@ class Users {
     }
 
     //[ [ 'Microsoft', 'Amazon', 'Apple' ], [ 'Tata', 'Amazon', 'Google' ] ]
-    console.log(lF);
+    // console.log(lF);
 
     const stockNames = stocks.map((stock) => stock.name);
-    console.log(stockNames);
+    // console.log(stockNames);
 
     let availableStocks = [];
     for (let p of lF) {
@@ -43,7 +43,7 @@ class Users {
     }
 
     // [ [ 'Tata', 'Google' ], [ 'Microsoft', 'Apple' ] ]
-    console.log(availableStocks);
+    // console.log(availableStocks);
 
     // userPortfolios.stocks
     // if st.name is in as -->
@@ -65,11 +65,11 @@ class Users {
           list.push(i);
         }
       }
-      console.log(list);
+      // console.log(list);
       fList.push(list);
     }
 
-    console.log(fList);
+    // console.log(fList);
     // userPortfolios conains all the portfolios for the curr user
     let availablePortfoliosForEachStock = [];
     for (let list of fList) {
@@ -80,7 +80,7 @@ class Users {
       availablePortfoliosForEachStock.push(tempPorts);
     }
 
-    console.log(availablePortfoliosForEachStock);
+    // console.log(availablePortfoliosForEachStock);
 
     res.render('home', { stocks, user, availablePortfoliosForEachStock });
   };

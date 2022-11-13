@@ -1,5 +1,6 @@
 const User = require('../models/UserModel');
 const Portfolio = require('../models/PortfolioModel');
+const UserModel = require('../models/UserModel');
 
 class Portfolios {
   // find all the portfolios associated with the current User:
@@ -13,6 +14,8 @@ class Portfolios {
   viewPortfolio = async (req, res) => {
     const { userId, portfolioId } = req.params;
     const portfolio = await Portfolio.findById(portfolioId).populate('stocks');
+    console.log('Viewing portfolio:');
+    console.log(portfolio);
     res.render('portfolios/showPortfolio', { portfolio });
   };
 
