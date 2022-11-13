@@ -2,17 +2,14 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 let server = require('../index');
 
-// Assertion style
 chai.should();
-
 chai.use(chaiHttp);
 
 let userId = '636831a68bea22ab802e2827';
 let portfolioId = '6370e9916b46c829409d67a5';
 
 describe('Portfolio API', () => {
-  // get all portfolios:
-  describe('GET /portfolio/:userId', () => {
+  describe('Test 1 : Correct details for viewing all portfolios', () => {
     it('It should get all the portfolios', (done) => {
       chai
         .request(server)
@@ -25,7 +22,9 @@ describe('Portfolio API', () => {
           done();
         });
     });
+  });
 
+  describe('Test 2 : Incorrect details for viewing all portfolios ', (done) => {
     it('It should not get the portfolios for user that does not exist', (done) => {
       chai
         .request(server)
@@ -36,10 +35,9 @@ describe('Portfolio API', () => {
           done();
         });
     });
-  });
+  })
 
-  // get portfolio by id:
-  describe('GET /portfolio/:userId/:portfolioId', () => {
+  describe('Test 3 : Correct details to view a specific portfolio', () => {
     it('It should get the portfolio by id', (done) => {
       chai
         .request(server)
@@ -52,7 +50,9 @@ describe('Portfolio API', () => {
           done();
         });
     });
+  });
 
+  describe('Test 4 : Incorrect details to view a specific portfolio', () => {
     it('It should get the portfolio if portfolio does not exists', (done) => {
       chai
         .request(server)
@@ -63,10 +63,9 @@ describe('Portfolio API', () => {
           done();
         });
     });
-  });
+  })
 
-  // POST new portfolio
-  describe('POST /portfolio/:userId', () => {
+  describe('Test 5 : Correct details to creating new portfolio', () => {
     it('It should create a new portfolio', (done) => {
       let name = 'Test-portfolio';
       chai
@@ -75,7 +74,6 @@ describe('Portfolio API', () => {
         .set('content-type', 'application/x-www-form-urlencoded')
         .send({ name })
         .end((err, res) => {
-          // console.log(res.body)
           res.body.should.have.property('_id');
           res.body.should.have.property('name');
           res.body.should.have.property('owner').eql(userId);
@@ -83,7 +81,9 @@ describe('Portfolio API', () => {
           done();
         });
     });
+  });
 
+  describe('Test 6 : Missing details for creating new portfolio', () => {
     it('It should not create new portfolio if details are missing', (done) => {
       let name;
       chai
@@ -96,10 +96,9 @@ describe('Portfolio API', () => {
           done();
         });
     });
-  });
+  })
 
-  // DELETE portfolio
-  describe('DELETE /portfolio/:userId/:portfolioId', () => {
+  describe('Test 7 : Correct details for deleting a portfolio', () => {
     it('It should delete an existing portfolio', (done) => {
       chai
         .request(server)
@@ -109,7 +108,9 @@ describe('Portfolio API', () => {
           done();
         });
     });
+  });
 
+  describe('Test 8 : Incorrect details for deleting a portfolio', () => {
     it('It should not delete a portfolio which does not exist', (done) => {
       chai
         .request(server)
@@ -119,5 +120,5 @@ describe('Portfolio API', () => {
           done();
         });
     });
-  });
+  })
 });
