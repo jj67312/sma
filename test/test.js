@@ -6,9 +6,9 @@ chai.should();
 chai.use(chaiHttp);
 
 let userId = '636831a68bea22ab802e2827';
-let portfolioId = '6370e9916b46c829409d67a5';
+let portfolioId = '63713b353be0f617fb167e39';
 
-describe('Portfolio API', () => {
+describe('Portfolio', () => {
   describe('Test 1 : Correct details for viewing all portfolios', () => {
     it('It should get all the portfolios', (done) => {
       chai
@@ -35,7 +35,7 @@ describe('Portfolio API', () => {
           done();
         });
     });
-  })
+  });
 
   describe('Test 3 : Correct details to view a specific portfolio', () => {
     it('It should get the portfolio by id', (done) => {
@@ -43,6 +43,8 @@ describe('Portfolio API', () => {
         .request(server)
         .get('/portfolio/' + userId + '/' + portfolioId)
         .end((err, res) => {
+          // console.log('/portfolio/' + userId + '/' + portfolioId);
+          // console.log(res.body);
           res.body.should.have.property('_id');
           res.body.should.have.property('name');
           res.body.should.have.property('stocks');
@@ -63,7 +65,7 @@ describe('Portfolio API', () => {
           done();
         });
     });
-  })
+  });
 
   describe('Test 5 : Correct details to creating new portfolio', () => {
     it('It should create a new portfolio', (done) => {
@@ -96,14 +98,15 @@ describe('Portfolio API', () => {
           done();
         });
     });
-  })
+  });
 
   describe('Test 7 : Correct details for deleting a portfolio', () => {
     it('It should delete an existing portfolio', (done) => {
       chai
         .request(server)
-        .delete('/portfolio/' + userId + '/' + '6370e99a6b46c829409d67b9')
+        .delete('/portfolio/' + userId + '/' + portfolioId)
         .end((err, res) => {
+          // console.log('/portfolio/' + userId + '/' + portfolioId);
           res.should.have.status(200);
           done();
         });
@@ -116,9 +119,12 @@ describe('Portfolio API', () => {
         .request(server)
         .delete('/portfolio/' + userId + '/123')
         .end((err, res) => {
+          // console.log(err)
+          // console.log(res)
+          console.log('/portfolio/' + userId + '/123');
           res.should.have.status(404);
           done();
         });
     });
-  })
+  });
 });

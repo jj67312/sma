@@ -5,32 +5,25 @@ class Portfolios {
   // find all the portfolios associated with the current User:
   allPortfolios = async (req, res) => {
     const { userId } = req.params;
-    // console.log(userId);
-    // const user = await User.findById(userId).populate('portfolios');
-
     await User.findById(userId)
       .populate('portfolios')
-      .then((data) => res.json(data))
+      .then((data) => {
+        res.json(data);
+      })
       .catch((error) => res.status(404).send('User does not exist'));
-
-    // console.log(user)
-    // res.json(user);
-    // res.render('portfolios/indexPortfolio', { user });
   };
 
   // view existing portfolio
-
   viewPortfolio = async (req, res) => {
     const { userId, portfolioId } = req.params;
-    // const portfolio = await Portfolio.findById(portfolioId).populate('stocks');
-    // res.json(portfolio);
 
     await Portfolio.findById(portfolioId)
       .populate('stocks')
-      .then((data) => res.json(data))
+      .then((data) => {
+        // const d = {_id, portfolio: []}
+        res.json(data)
+      })
       .catch((err) => res.status(404).send('Portfolio does not exist'));
-
-    // res.render('portfolios/showPortfolio', { portfolio });
   };
 
   // create a new portfolio for the current user
@@ -82,17 +75,18 @@ class Portfolios {
     const { userId, portfolioId } = req.params;
 
     await Portfolio.findOneAndDelete({ _id: portfolioId })
-      .then((data) => res.status(200).json(data))
-      .catch((err) => res.status(404).send('Portfolio does not exist'));
-
-    const user = await User.findByIdAndUpdate(userId, {
-      $pull: { portfolios: portfolioId },
-    });
-
-    // const portfolio = await Portfolio.findOneAndDelete({ _id: portfolioId });
-
-    // req.flash('success', `Successfully deleted ${portfolio.name} portfolio!`);
-    // res.redirect(`/portfolio/${userId}`);
+      .then(async (data) => {
+        await User.findByIdAndUpdate(userId, {
+          $pull: { portfolios: portfolioId },
+        })
+          .then((d) => res.status(200).json(data))
+          .catch((e) =>
+            res.status(404).send('Cannot delete portfolios not owned by you!')
+          );
+      })
+      .catch((err) =>
+        res.status(404).send('Cannot delete portfolios not owned by you!')
+      );
   };
 }
 module.exports = { Portfolios };
