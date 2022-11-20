@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "mocha --timeout 100000"
+  },
+  "engines": {
+    "node": "16.13.1",
+    "npm": "8.1.2"
   },
   "keywords": [],
   "author": "",
