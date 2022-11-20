@@ -22,7 +22,6 @@ module.exports.isSameUser = async (req, res, next) => {
     req.flash('error', 'User does not exist!');
     return res.redirect('/');
   }
-
   next();
 };
 
