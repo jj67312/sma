@@ -90,7 +90,7 @@ class Portfolios {
         // console.log(data)
         return res.json(data);
       })
-      .catch((err) => res.status(404).send('Portfolio does not exist'));
+      .catch((err) => { return res.status(404).send('Portfolio does not exist') });
   };
 
   // create a new portfolio for the current user
