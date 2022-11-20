@@ -2,18 +2,31 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 let server = require('../index');
 
+const UserModel = require('../models/UserModel');
+const Portfolio = require('../models/PortfolioModel');
+
+async function findPortfolio() {
+  const user = await UserModel.findById('636831a68bea22ab802e2827');
+  // console.log(user.portfolios[0].toString());
+  return user.portfolios[0].toString();
+}
+
 chai.should();
 chai.use(chaiHttp);
 
 let userId = '636831a68bea22ab802e2827';
-let portfolioId = '63713b353be0f617fb167e39';
+let portfolioId = 0;
+
+findPortfolio().then((data) => {
+  portfolioId = data;
+});
 
 describe('Portfolio', () => {
   describe('Test 1 : Correct details for viewing all portfolios', () => {
     it('It should get all the portfolios', (done) => {
       chai
         .request(server)
-        .get('/portfolio/' + userId)
+        .get('/portfolio/test/' + userId)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.have.property('_id');
@@ -28,7 +41,7 @@ describe('Portfolio', () => {
     it('It should not get the portfolios for user that does not exist', (done) => {
       chai
         .request(server)
-        .get('/portfolio/123')
+        .get('/portfolio/test/123')
         .end((err, res) => {
           res.should.have.status(404);
           res.text.should.be.eq('User does not exist');
@@ -41,10 +54,9 @@ describe('Portfolio', () => {
     it('It should get the portfolio by id', (done) => {
       chai
         .request(server)
-        .get('/portfolio/' + userId + '/' + portfolioId)
+        .get('/portfolio/test/' + userId + '/' + portfolioId)
         .end((err, res) => {
-          // console.log('/portfolio/' + userId + '/' + portfolioId);
-          // console.log(res.body);
+          // console.log(res.body)
           res.body.should.have.property('_id');
           res.body.should.have.property('name');
           res.body.should.have.property('stocks');
@@ -58,7 +70,7 @@ describe('Portfolio', () => {
     it('It should get the portfolio if portfolio does not exists', (done) => {
       chai
         .request(server)
-        .get('/portfolio/' + userId + '/123')
+        .get('/portfolio/test/' + userId + '/123')
         .end((err, res) => {
           res.should.have.status(404);
           res.text.should.be.eq('Portfolio does not exist');
@@ -72,7 +84,7 @@ describe('Portfolio', () => {
       let name = 'Test-portfolio';
       chai
         .request(server)
-        .post('/portfolio/' + userId)
+        .post('/portfolio/test/' + userId)
         .set('content-type', 'application/x-www-form-urlencoded')
         .send({ name })
         .end((err, res) => {
@@ -90,7 +102,7 @@ describe('Portfolio', () => {
       let name;
       chai
         .request(server)
-        .post('/portfolio/' + userId)
+        .post('/portfolio/test/' + userId)
         .set('content-type', 'application/x-www-form-urlencoded')
         .send({ name })
         .end((err, res) => {
@@ -104,7 +116,7 @@ describe('Portfolio', () => {
     it('It should delete an existing portfolio', (done) => {
       chai
         .request(server)
-        .delete('/portfolio/' + userId + '/' + portfolioId)
+        .delete('/portfolio/test/' + userId + '/' + portfolioId)
         .end((err, res) => {
           // console.log('/portfolio/' + userId + '/' + portfolioId);
           res.should.have.status(200);
@@ -117,11 +129,8 @@ describe('Portfolio', () => {
     it('It should not delete a portfolio which does not exist', (done) => {
       chai
         .request(server)
-        .delete('/portfolio/' + userId + '/123')
+        .delete('/portfolio/test/' + userId + '/123')
         .end((err, res) => {
-          // console.log(err)
-          // console.log(res)
-          console.log('/portfolio/' + userId + '/123');
           res.should.have.status(404);
           done();
         });
