@@ -35,7 +35,7 @@ const LocalStrategy = require('passport-local');
 const methodOverride = require('method-override');
 
 const dbUrl = 'mongodb+srv://jay:jay@cluster0.ft5hddt.mongodb.net/test';
-console.log(dbUrl);
+// console.log(dbUrl);
 const mongoose = require('mongoose');
 main()
   .then((res) => {})

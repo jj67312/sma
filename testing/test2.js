@@ -2,12 +2,24 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 let server = require('../index');
 
+const UserModel = require('../models/UserModel');
+const Portfolio = require('../models/PortfolioModel');
+
+async function findPortfolio() {
+  const user = await UserModel.findById('636831a68bea22ab802e2827');
+  // console.log(user.portfolios[0].toString());
+  return user.portfolios[0].toString();
+}
+
 chai.should();
 chai.use(chaiHttp);
 
-
 let userId = '636831a68bea22ab802e2827';
 let portfolioId = 0;
+
+findPortfolio().then((data) => {
+  portfolioId = data;
+});
 
 describe('Portfolio', () => {
   describe('Test 1 : Correct details for viewing all portfolios', () => {
@@ -16,10 +28,10 @@ describe('Portfolio', () => {
         .request(server)
         .get('/portfolio/test/' + userId)
         .end((err, res) => {
-          // res.should.have.status(200);
-          // res.body.should.have.property('_id');
-          // res.body.should.have.property('portfolios');
-          // res.body.should.have.property('username');
+          res.should.have.status(200);
+          res.body.should.have.property('_id');
+          res.body.should.have.property('portfolios');
+          res.body.should.have.property('username');
           done();
         });
     });
@@ -31,8 +43,8 @@ describe('Portfolio', () => {
         .request(server)
         .get('/portfolio/test/123')
         .end((err, res) => {
-          // res.should.have.status(404);
-          // res.text.should.be.eq('User does not exist');
+          res.should.have.status(404);
+          res.text.should.be.eq('User does not exist');
           done();
         });
     });
@@ -45,10 +57,10 @@ describe('Portfolio', () => {
         .get('/portfolio/test/' + userId + '/' + portfolioId)
         .end((err, res) => {
           // console.log(res.body)
-          // res.body.should.have.property('_id');
-          // res.body.should.have.property('name');
-          // res.body.should.have.property('stocks');
-          // res.body.should.have.property('owner');
+          res.body.should.have.property('_id');
+          res.body.should.have.property('name');
+          res.body.should.have.property('stocks');
+          res.body.should.have.property('owner');
           done();
         });
     });
@@ -60,8 +72,8 @@ describe('Portfolio', () => {
         .request(server)
         .get('/portfolio/test/' + userId + '/123')
         .end((err, res) => {
-          // res.should.have.status(404);
-          // res.text.should.be.eq('Portfolio does not exist');
+          res.should.have.status(404);
+          res.text.should.be.eq('Portfolio does not exist');
           done();
         });
     });
@@ -76,10 +88,10 @@ describe('Portfolio', () => {
         .set('content-type', 'application/x-www-form-urlencoded')
         .send({ name })
         .end((err, res) => {
-          // res.body.should.have.property('_id');
-          // res.body.should.have.property('name');
-          // res.body.should.have.property('owner').eql(userId);
-          // res.body.should.have.property('stocks');
+          res.body.should.have.property('_id');
+          res.body.should.have.property('name');
+          res.body.should.have.property('owner').eql(userId);
+          res.body.should.have.property('stocks');
           done();
         });
     });
@@ -94,7 +106,7 @@ describe('Portfolio', () => {
         .set('content-type', 'application/x-www-form-urlencoded')
         .send({ name })
         .end((err, res) => {
-          // res.should.have.status(404);
+          res.should.have.status(404);
           done();
         });
     });
@@ -107,7 +119,7 @@ describe('Portfolio', () => {
         .delete('/portfolio/test/' + userId + '/' + portfolioId)
         .end((err, res) => {
           // console.log('/portfolio/' + userId + '/' + portfolioId);
-          // res.should.have.status(200);
+          res.should.have.status(200);
           done();
         });
     });
@@ -119,7 +131,7 @@ describe('Portfolio', () => {
         .request(server)
         .delete('/portfolio/test/' + userId + '/123')
         .end((err, res) => {
-          // res.should.have.status(404);
+          res.should.have.status(404);
           done();
         });
     });
