@@ -15,15 +15,15 @@ const DropDown = ({ currentMode }) => (
   </div>
 );
 
-const Ecommerce = () => {
+const Dash = () => {
   const { currentColor, currentMode } = useStateContext();
 
   return (
     <div className="mt-24">
       <div className="flex flex-wrap lg:flex-nowrap justify-center ">
-        <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3 bg-[url('D:\Data\Personal\ITLAB\se-project\src\data\welcome-bg.svg')] bg-no-repeat bg-cover bg-center">
-          <div className="flex justify-between items-center">
-            <div>
+        <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3 ">
+          <div className="flex justify-between items-center ">
+            <div className=" dark:bg-secondary-dark-bg ">
               <p className="font-bold text-gray-400">Earnings</p>
               <p className="text-2xl">$63,448.78</p>
             </div>
@@ -330,4 +330,4 @@ const Ecommerce = () => {
   );
 };
 
-export default Ecommerce;
+export default Dash;

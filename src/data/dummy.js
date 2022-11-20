@@ -12,6 +12,7 @@ import { HiOutlineRefresh } from 'react-icons/hi';
 import { TiTick } from 'react-icons/ti';
 import { GiLouvrePyramid } from 'react-icons/gi';
 import { GrLocation } from 'react-icons/gr';
+import { IoIosChatboxes } from "react-icons/io";
 import avatar from './avatar.jpg';
 import avatar2 from './avatar2.jpg';
 import avatar3 from './avatar3.png';
@@ -442,7 +443,7 @@ export const links = [
     title: 'Dashboard',
     links: [
       {
-        name: 'ecommerce',
+        name: 'Dash',
         icon: <FiShoppingBag />,
       },
     ],
@@ -456,36 +457,36 @@ export const links = [
         icon: <AiOutlineShoppingCart />,
       },
       {
-        name: 'employees',
-        icon: <IoMdContacts />,
-      },
-      {
         name: 'customers',
         icon: <RiContactsLine />,
       },
+      {
+        name: 'chat',
+        icon: <IoIosChatboxes/>,
+      },
     ],
   },
-  {
-    title: 'Apps',
-    links: [
-      {
-        name: 'calendar',
-        icon: <AiOutlineCalendar />,
-      },
-      {
-        name: 'kanban',
-        icon: <BsKanban />,
-      },
-      {
-        name: 'editor',
-        icon: <FiEdit />,
-      },
-      // {
-      //   name: 'color-picker',
-      //   icon: <BiColorFill />,
-      // },
-    ],
-  },
+  // {
+  //   title: 'Apps',
+  //   links: [
+  //     {
+  //       name: 'calendar',
+  //       icon: <AiOutlineCalendar />,
+  //     },
+  //     {
+  //       name: 'kanban',
+  //       icon: <BsKanban />,
+  //     },
+  //     {
+  //       name: 'editor',
+  //       icon: <FiEdit />,
+  //     },
+  //     // {
+  //     //   name: 'color-picker',
+  //     //   icon: <BiColorFill />,
+  //     // },
+  //   ],
+  // },
   {
     title: 'Charts',
     links: [
